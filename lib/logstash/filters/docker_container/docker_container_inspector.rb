@@ -12,9 +12,11 @@ module LogStash::Filters::DockerContainerSupport
       end
 
       public
-      # @return [String] the resolved container name
+      # @return [String] the `docker inspect` content or '[]' if unable to find the container
       # @param [String] container_id
       def inspect(container_id)
+        content = `#{@docker_client} #{@client_options} inspect #{container_id}`
+        return $?.success? ? content : '[]'
       end
     end
 
