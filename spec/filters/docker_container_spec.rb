@@ -9,7 +9,7 @@ describe LogStash::Filters::DockerContainer do
     allow(LogStash::Filters::DockerContainerSupport::DockerContainerInspector).to receive(:new).and_return(inspector)
   end
 
-  describe "typical case" do
+  describe "typical case and cached" do
     let(:config) do <<-CONFIG
       filter {
         docker_container {
@@ -21,14 +21,18 @@ describe LogStash::Filters::DockerContainer do
 
     before do
       content = File.new(File.join(File.dirname(__FILE__),'container_logstash.json')).read()
-      expect(inspector).to receive(:inspect)
+      # Due to caching of the Docker findings, the inspector should only be consulted once
+      # since the sample includes the same container ID both times
+      expect(inspector).to receive(:inspect).once
                                .with('bd30193a3b9d')
                                .and_return(content)
     end
 
-    sample('container_id' => 'bd30193a3b9d') do
-      expect(subject).to include('container_name')
-      expect(subject['container_name']).to eq('/logstash')
+    sample([{'seq' => 1, 'container_id' => 'bd30193a3b9d'}, {'seq' => 2, 'container_id' => 'bd30193a3b9d'}]) do
+      subject.each do |e|
+        expect(e).to include('container_name')
+        expect(e['container_name']).to eq('/logstash')
+      end
     end
   end
 end
