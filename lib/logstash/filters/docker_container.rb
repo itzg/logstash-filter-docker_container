@@ -26,7 +26,7 @@ class LogStash::Filters::DockerContainer < LogStash::Filters::Base
     return unless filter? event
 
     @match.each { |in_field,out_field|
-      event[out_field] = resolve_from(event[in_field])
+      event.set(out_field, resolve_from(event.get(in_field)))
     }
 
     filter_matched(event)
