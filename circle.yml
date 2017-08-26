@@ -1,7 +1,3 @@
-machine:
-  ruby:
-    version: jruby-1.7.19
-
 test:
   post:
     - bundle install

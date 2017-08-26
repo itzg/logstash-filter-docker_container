@@ -1,3 +1,8 @@
+
+This is a Logstash filter plugin that resolves Docker container IDs into the container's name.
+
+[![Gem](https://img.shields.io/gem/v/logstash-filter-docker_container.svg)](https://rubygems.org/gems/logstash-filter-docker_container)
+
 # Docker Container Logstash Filter Plugin
 
 This is a plugin for [Logstash](https://github.com/elasticsearch/logstash).
