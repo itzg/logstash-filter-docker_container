@@ -31,7 +31,7 @@ describe LogStash::Filters::DockerContainer do
     sample([{'seq' => 1, 'container_id' => 'bd30193a3b9d'}, {'seq' => 2, 'container_id' => 'bd30193a3b9d'}]) do
       subject.each do |e|
         expect(e).to include('container_name')
-        expect(e['container_name']).to eq('/logstash')
+        expect(e.get('container_name')).to eq('/logstash')
       end
     end
   end
