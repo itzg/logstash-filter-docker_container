@@ -1,16 +1,15 @@
 version: 2.1
 jobs:
   test:
-    docker:
-      - image: circleci/jruby
+    docker: &executor
+      - image: circleci/jruby:9.1
     steps:
       - checkout
       - run: bundle install
       - run: bundle exec rspec
 
   publish:
-    docker:
-      - image: circleci/jruby
+    docker: *executor
     steps:
       - checkout
       - run: bundle install

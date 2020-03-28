@@ -1,4 +1,5 @@
-require 'spec_helper'
+# encoding: utf-8
+require_relative '../spec_helper'
 require "logstash/filters/docker_container"
 require 'rspec/mocks'
 
