@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'logstash-filter-docker_container'
-  s.version = '0.2.3'
+  s.version = '0.3.0'
   s.licenses      = ['Apache-2.0']
   s.summary = "Resolves Docker container IDs into the container's name."
   s.description = "With Docker's syslog log-driver the log entries contain just container ID, but seeing the name is even better"
